@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li class="active">Войти</li>
+    </ul>
+    <h1>Вход в учетную запись</h1>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Войти</button>
+    </form>
+{% endblock %}

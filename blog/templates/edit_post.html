@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li><a href="{% url 'post_list' %}">Список постов</a><span class="divider">/</span></li>
+        <li class="active">Просмотр поста<span class="divider">/</span></li>
+        <li class="active">Редактирование поста</li>
+    </ul>
+    {% if request.user.is_authenticated %}
+        <h1>Редактирование поста</h1>
+        <form action="{% url 'edit_post' post.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Сохранить изменения</button>
+        </form>
+    {% else %}
+        <h3>Чтобы редактировать пост <a href="{% url 'login' %}">войдите</a> в учетную запись или <a href="{% url 'register' %}"> зарегестрируйтесь</a></h3>
+    {% endif %}
+{% endblock %}

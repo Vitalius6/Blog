@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li><a href="{% url 'post_list' %}">Список постов</a><span class="divider">/</span></li>
+        <li class="active">Просмотр поста<span class="divider">/</span></li>
+        <li class="active">Добавить комментарий</li>
+    </ul>
+    {% if request.user.is_authenticated %}
+        <h1>Коментарий к посту {{ post.title }}</h1>
+        <form action="{% url 'add_comment' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Добавить</button>
+        </form>
+    {% else %}
+        <h3>Чтобы прокомментировать пост <a href="{% url 'login' %}">войдите</a> в учетную запись или <a href="{% url 'register' %}"> зарегестрируйтесь</a></h3>
+    {% endif %}
+{% endblock %}

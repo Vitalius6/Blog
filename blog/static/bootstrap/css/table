@@ -1,0 +1,19 @@
+ <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th><a href="{% url 'register' %}" class="btn btn-primary">Регистрация пользователя</a></th>
+                {% if request.user.is_authenticated %}
+                    <th><h1>Здравствуйте, {{request.user.username}}</h1></th>
+                    <th><a href="{% url 'logout' %}" class="btn btn-primary">Выйти</a></th>
+                {% else %}
+                    <th><a href="{% url 'login' %}" class="btn btn-primary">Войти</a></th>
+                {% endif %}
+            </tr>
+        </thead>
+    </table>
+    <table class="table">
+        <tbody>
+            {% block content %}
+            {% endblock %}
+        </tbody>
+    </table>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li class="active">Список постов</li>
+    </ul>
+    <h2>Список постов:</h2>
+    {% for post in object_list %}
+        <h2><a href="{% url 'detail_post' pk=post.id %}">{{ post.title }}</a></h2>
+        <h5>{{ post.pub_date }}</h5>
+        <h3>{{ post.context }}</h3>
+        <h3><a href="{% url 'author_posts' %}">{{ post.author }}</a></h3>
+        <h3>Комментариев: {{ post.comment_set.count }}</h3>
+        <br>
+    {% endfor %}
+{% endblock %}

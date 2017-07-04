@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li><a href="{% url 'post_list' %}">Список постов</a><span class="divider">/</span></li>
+        <li class="active">Посты автора</li>
+    </ul>
+    {% if post.author == request.post.author %}
+        {% for post in object_list %}
+            <h2><a href="{% url 'detail_post' pk=post.id %}">{{ post.title }}</a></h2>
+            <h5>{{ post.pub_date }}</h5>
+            <h3>{{ post.context }}</h3>
+            <h3>{{ post.author }}</h3>
+            <h3>Comments: {{ post.comment_set.count }}</h3>
+            <br>
+            <br>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

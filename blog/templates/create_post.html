@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li class="active">Создать пост</li>
+    </ul>
+    <h1>Создать пост</h1>
+    <form action="{% url 'create_post' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Создать</button>
+    </form>
+{% endblock %}

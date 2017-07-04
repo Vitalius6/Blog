@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>My Blog</title>
+        <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+{#        <link rel="stylesheet" href="{% static "bootstrap/css/style.css" %}">#}
+        <style>
+            body {
+                padding-left: 30px;
+                padding-right: 30px;
+                background-image: url({% static "bootstrap/img/img2.jpg" %});
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
+        <script src="{% static "bootstrap/js/bootstrap.js"%}" type="text/javascript"></script>
+        {% block extrahead %}
+        {% endblock %}
+        <script type="text/javascript">
+        $(function(){
+        {% block jquery %}
+        {% endblock %}
+        });
+        </script>
+    </head>
+<body>
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                {% if request.user.is_authenticated %}
+                    <th>Здравствуйте, {{request.user.username}}</th>
+                    <th><a href="{% url 'logout' %}" class="btn btn-primary">Выйти</a></th>
+                {% else %}
+                    <th><a href="{% url 'login' %}" class="btn btn-primary">Войти</a></th>
+                {% endif %}
+                <th><a href="{% url 'register' %}" class="btn btn-primary">Регистрация пользователя</a></th>
+            </tr>
+            <tr>
+                <th><a href="{% url 'post_list' %}" class="btn btn-primary">Спиок постов</a></th>
+                <th><a href="{% url 'create_post' %}" class="btn btn-primary">Создать пост</a></th>
+{#                <th><a href="{% url 'support' %}" class="btn btn-primary">Поддержать проект</a></th>#}
+            </tr>
+        </thead>
+    </table>
+    <table class="table table-bordered table-condensed">
+        <tbody>
+            {% block content %}
+            {% endblock %}
+        </tbody>
+    </table>
+</body>
+</html>

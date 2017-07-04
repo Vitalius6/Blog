@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'home' %}">Главная</a><span class="divider">/</span></li>
+        <li><a href="{% url 'post_list' %}">Список постов</a><span class="divider">/</span></li>
+        <li class="active">{{ post.title }}</li>
+    </ul>
+    <h1>{{ post.title }}</h1>
+    {{ post.context }}<br>
+    <br>
+    {{ post.pub_date }}<br>
+    {{ post.author }}<br>
+    {% for comment in post.comment_set.all %}
+        <br>
+        <br>
+        <h2>{{ comment.author }}</h2>
+        {{ comment.pub_date }}<br>
+        {{ comment.text }}<br>
+    {% empty %}
+        <h2>Пока нет коментариев</h2>
+    {% endfor %}
+    <br>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'edit_post' post.pk %}">Редактировать пост</a><br>
+        <a href="{% url 'delete_post' post.pk %}">Удалить</a><br>
+        <a href="{% url 'add_comment' %}">Добавить коментарий</a><br>
+    {% endif %}
+{% endblock %}
